@@ -18,7 +18,7 @@ export function usersReducer(state = initialState, action: UsersActions) {
         };
         case STOP_USERS:
         return {
-          isAuthenticated: true
+          isAuthenticated: false
         };
         default: {
           return state;
