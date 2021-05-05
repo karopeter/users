@@ -1,0 +1,31 @@
+<div class="container">
+   <div class="row">
+    <form [formGroup]="signupForm">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="firstName" id="floatingInput" formControlName="first_name" required>
+        <p class="lblError" *ngIf="signupForm.get('first_name')?.hasError('required') && !signupForm.get('first_name')?.pristine">First Name is Required</p>
+        <p class="lblError" *ngIf="signupForm.get('frist_name')?.hasError('invalidFirstName') && !signupForm.get('first_name')?.pristine">First Name is Invalid</p>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="lastName" formControlName="last_name">
+        <p clas="lblError" *ngIf="signupForm.get('last_name')?.hasError('required') && !signupForm.get('last_name')?.pristine">Last Name is Required</p>
+        <p class="lblError" *ngIf="signupForm.get('last_name')?.hasError('invalidLastName') && !signupForm.get('last_name')?.pristine">Last Name is Invalid</p>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="email" formControlName="user_email" value="email">
+        <p class="lblError" *ngIf="signupForm.get('user_email')?.hasError('required') && !signupForm.get('user_email')?.pristine">Please provide your email</p>
+        <p class="lblError" *ngIf="signupForm.get('user_email')?.hasError('email') && !signupForm.get('user_email')?.pristine">E-mail is Invalid</p>
+        <p class="lblError" style="color: green;" *ngIf="(signupForm.get('user_email')?.status == 'PENDING' && !signupForm.get('user_email')?.pristine)">Checking...</p>
+        <p class="lblError" style="color: red;" *ngIf="signupForm.get('user_email')?.hasError('forbiddenEmails')">Email is not allowed</p>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="budget"formControlName="user_budget">
+         <span>Budget should be inputed</span>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="phoneNumber" formControlName="phone_number">
+      </div>
+      <button class="btn btn-primary" (click)="onSubmit()" type="button">Submit</button>
+    </form>    
+   </div>
+</div>
