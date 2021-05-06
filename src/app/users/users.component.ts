@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,8 @@ import { UserService } from './../user.service';
 import * as fromRoot from '../app.reducer';
 import * as Users from './users.action';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { NotificationService } from './../notification.service';
 
 
 
@@ -16,12 +18,14 @@ import { take } from 'rxjs/operators';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   signupForm!: FormGroup;
   users!: UserModel;
+  subscription!: Subscription;
   isLoading!: Observable<boolean>;
   invalidNamesArr: string[] = ['payment', 'Isreal'];
-  constructor(private userServiceObj: UserService, private store: Store<{ui: fromRoot.State}>) { }
+  constructor(
+    private userServiceObj: UserService, private notifyService: NotificationService, private store: Store<{ui: fromRoot.State}>) { }
 
   ngOnInit(): void {
     this.store.dispatch(new Users.StartUsers());
@@ -34,7 +38,7 @@ export class UsersComponent implements OnInit {
     });
     this.store.dispatch(new Users.StopUsers());
     this.store.subscribe(data => console.log(data));
-  }  
+  }
 
   invalidNameValidation(control: AbstractControl) {
     if (this.invalidNamesArr.indexOf(control.value) >= 0) {
@@ -61,7 +65,7 @@ export class UsersComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.signupForm);
- 
+
     const userItem: UserModel = this.users = (
        this.signupForm.get('first_name')?.value,
        this.signupForm.get('last_name')?.value,
@@ -79,6 +83,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
      const promise = new Promise<any>((resolve, reject) => {
         setTimeout(() => {
@@ -90,5 +98,13 @@ export class UsersComponent implements OnInit {
         }, 1500);
      });
      return promise;
+  }
+
+  showToasterSuccess(): void {
+    this.notifyService.showSuccess('Data Submitted Successfully!!', 'ItSolutionStuff.com');
+  }
+
+  showToasterError(): void {
+    this.notifyService.showError('Something is wrong!!', 'ItSolutionStuff.com');
   }
 }
