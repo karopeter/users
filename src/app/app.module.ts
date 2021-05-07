@@ -10,11 +10,13 @@ import { StoreModule } from '@ngrx/store';
 import { UsersComponent } from './users/users.component';
 import { reducers } from './app.reducer';
 import { ToastrModule } from 'ngx-toastr';
+import { FiledComponent } from './filed/filed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent
+    UsersComponent,
+    FiledComponent
   ],
   imports: [
     BrowserModule,
