@@ -4,12 +4,12 @@ import { FormGroup, FormControl, Validators, AbstractControl, FormArray } from '
 import { Store } from '@ngrx/store';
 import { UserModel } from './../models/userModel';
 import { Observable } from 'rxjs';
-import { UserService } from './../user.service';
+import { UserService } from '../services/user.service';
 import * as fromRoot from '../app.reducer';
 import * as Users from './users.action';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { NotificationService } from './../notification.service';
+import { NotificationService } from '../services/notification.service';
 
 
 

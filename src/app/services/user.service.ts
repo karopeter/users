@@ -3,9 +3,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { endPoints } from '../environments/environment';
-import { UserModel } from './models/userModel';
-import * as fromApp from './app.reducer';
+import { endPoints } from '../../environments/environment';
+import * as fromApp from '../app.reducer';
+import { UserModel } from './../models/userModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class UserService {
       retry(3),
       catchError(this.handleError)
     );
-    
+
   }
 
   addUser(item: UserModel) {
