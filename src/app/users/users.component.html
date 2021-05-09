@@ -24,6 +24,6 @@
        <input type="text" matInput placeholder="phone" formControlName="phone_number" required>
     </mat-form-field>
     <mat-checkbox name="agree" required color="primary">Agree to terms and conditions</mat-checkbox>
-    <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+    <button type="submit" mat-raised-button color="primary" (click)="onSubmit()" (click)="showToasterSuccess()">Submit</button>
 </form>
 </section>
